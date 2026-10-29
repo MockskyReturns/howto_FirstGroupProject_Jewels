@@ -13,6 +13,11 @@ with the following keys:
 import random, time, pygame, sys, copy
 from pygame.locals import *
 
+with open("highscore.txt","r") as highscorefile:
+    filescore = highscorefile.read()
+    HIGHSCORE = int(filescore)
+
+
 FPS = 30 # frames per second to update the screen
 WINDOWWIDTH = 600  # width of the program's window, in pixels
 WINDOWHEIGHT = 600 # height in pixels
@@ -100,6 +105,14 @@ def main():
     while True:
         runGame()
 
+def updateHighScore(score):
+    global HIGHSCORE
+    HIGHSCORE = score
+    print(score)
+
+    with open("highscore.txt", "w") as file:
+        file.writelines(f'{score}')
+    
 
 def runGame():
     # Plays through a single game. When the game is over, this function returns.
@@ -196,6 +209,9 @@ def runGame():
                                        'y': gem[1] * GEMIMAGESIZE + YMARGIN})
                     random.choice(GAMESOUNDS['match']).play()
                     score += scoreAdd
+
+                    if score > HIGHSCORE:
+                        updateHighScore(score)
 
                     # Drop the new gems.
                     fillBoardAndAnimate(gameBoard, points, score)
