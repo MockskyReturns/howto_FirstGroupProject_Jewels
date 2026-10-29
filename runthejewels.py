@@ -241,6 +241,7 @@ def runGame():
             score -= 1
             lastScoreDeduction = time.time()
         drawScore(score)
+        displayHighScore(HIGHSCORE)
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
@@ -556,6 +557,12 @@ def drawScore(score):
     scoreImg = BASICFONT.render(str(score), 1, SCORECOLOR)
     scoreRect = scoreImg.get_rect()
     scoreRect.bottomleft = (10, WINDOWHEIGHT - 6)
+    DISPLAYSURF.blit(scoreImg, scoreRect)
+
+def displayHighScore(score):
+    scoreImg = BASICFONT.render(str(f'High Score: {score}'), 1, SCORECOLOR)
+    scoreRect = scoreImg.get_rect()
+    scoreRect.bottomright = (WINDOWWIDTH -10, WINDOWHEIGHT-6)
     DISPLAYSURF.blit(scoreImg, scoreRect)
 
 
