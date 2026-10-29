@@ -169,6 +169,10 @@ def runGame():
             if matchedGems == []:
                 # Was not a matching move; swap the gems back
                 GAMESOUNDS['bad swap'].play()
+                if score >= 5:
+                    score -= 5
+                else:
+                    score = 0
                 animateMovingGems(boardCopy, [firstSwappingGem, secondSwappingGem], [], score)
                 gameBoard[firstSwappingGem['x']][firstSwappingGem['y']] = firstSwappingGem['imageNum']
                 gameBoard[secondSwappingGem['x']][secondSwappingGem['y']] = secondSwappingGem['imageNum']
