@@ -86,6 +86,7 @@ def main():
     # Load the sounds.
     GAMESOUNDS = {}
     GAMESOUNDS['bad swap'] = pygame.mixer.Sound('sounds/badswap.wav')
+    GAMESOUNDS['high score'] = pygame.mixer.Sound('sounds/NewHighScore.wav')
     GAMESOUNDS['match'] = []
     for i in range(NUMMATCHSOUNDS):
         GAMESOUNDS['match'].append(pygame.mixer.Sound('sounds/match%s.wav' % i))
@@ -108,7 +109,6 @@ def main():
 def updateHighScore(score):
     global HIGHSCORE
     HIGHSCORE = score
-    print(score)
 
     with open("highscore.txt", "w") as file:
         file.writelines(f'{score}')
@@ -211,6 +211,7 @@ def runGame():
                     score += scoreAdd
 
                     if score > HIGHSCORE:
+                        GAMESOUNDS['high score'].play()
                         updateHighScore(score)
 
                     # Drop the new gems.
