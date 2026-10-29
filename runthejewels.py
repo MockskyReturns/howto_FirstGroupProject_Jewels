@@ -80,10 +80,10 @@ def main():
 
     # Load the sounds.
     GAMESOUNDS = {}
-    GAMESOUNDS['bad swap'] = pygame.mixer.Sound('badswap.wav')
+    GAMESOUNDS['bad swap'] = pygame.mixer.Sound('sounds/badswap.wav')
     GAMESOUNDS['match'] = []
     for i in range(NUMMATCHSOUNDS):
-        GAMESOUNDS['match'].append(pygame.mixer.Sound('match%s.wav' % i))
+        GAMESOUNDS['match'].append(pygame.mixer.Sound('sounds/match%s.wav' % i))
 
     # Create pygame.Rect objects for each board space to
     # do board-coordinate-to-pixel-coordinate conversions.
