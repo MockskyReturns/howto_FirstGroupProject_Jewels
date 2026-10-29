@@ -17,10 +17,11 @@ with open("highscore.txt","r") as highscorefile:
     filescore = highscorefile.read()
     HIGHSCORE = int(filescore)
 
-
 FPS = 30 # frames per second to update the screen
 WINDOWWIDTH = 600  # width of the program's window, in pixels
 WINDOWHEIGHT = 600 # height in pixels
+
+newHighScore = False # If a new high score is made : set to true and return modified final score
 
 BOARDWIDTH = 8 # how many columns in the board
 BOARDHEIGHT = 8 # how many rows in the board
@@ -212,6 +213,8 @@ def runGame():
 
                     if score > HIGHSCORE:
                         GAMESOUNDS['high score'].play()
+                        global newHighScore
+                        newHighScore = True
                         updateHighScore(score)
 
                     # Drop the new gems.
@@ -233,9 +236,14 @@ def runGame():
             if clickContinueTextSurf == None:
                 # Only render the text once. In future iterations, just
                 # use the Surface object already in clickContinueTextSurf
-                clickContinueTextSurf = BASICFONT.render('Final Score: %s (Click to continue)' % (score), 1, GAMEOVERCOLOR, GAMEOVERBGCOLOR)
-                clickContinueTextRect = clickContinueTextSurf.get_rect()
-                clickContinueTextRect.center = int(WINDOWWIDTH / 2), int(WINDOWHEIGHT / 2)
+                if newHighScore == False:
+                    clickContinueTextSurf = BASICFONT.render('Final Score: %s (Click to continue)' % (score), 1, GAMEOVERCOLOR, GAMEOVERBGCOLOR)
+                    clickContinueTextRect = clickContinueTextSurf.get_rect()
+                    clickContinueTextRect.center = int(WINDOWWIDTH / 2), int(WINDOWHEIGHT / 2)
+                else:
+                    clickContinueTextSurf = BASICFONT.render('High Score: %s (Click to continue)' % (HIGHSCORE), 1, GAMEOVERCOLOR, GAMEOVERBGCOLOR)
+                    clickContinueTextRect = clickContinueTextSurf.get_rect()
+                    clickContinueTextRect.center = int(WINDOWWIDTH / 2), int(WINDOWHEIGHT / 2)
             DISPLAYSURF.blit(clickContinueTextSurf, clickContinueTextRect)
         elif score > 0 and time.time() - lastScoreDeduction > DEDUCTSPEED:
             # score drops over time
